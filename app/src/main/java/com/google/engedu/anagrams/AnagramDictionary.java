@@ -1,6 +1,5 @@
 package com.google.engedu.anagrams;
 
-import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -37,8 +36,13 @@ public class AnagramDictionary {
     }
 
     public boolean isGoodWord(String word, String base) {
+
+        // check if word is present in the given dictionary
+
         if(!wordSet.contains(word.toLowerCase()))
          {return false;}
+
+        // return true if base is not present in word else return false
 
         return !(word.toLowerCase().contains(base.toLowerCase()));
     }
@@ -47,6 +51,7 @@ public class AnagramDictionary {
 
           ArrayList<String> result = new ArrayList<String>();
           String temp;
+
 
           for (int i = 97; i <= 122; i++) {
               temp = word.toLowerCase();
@@ -63,20 +68,22 @@ public class AnagramDictionary {
                   result.remove(i);
               }
           }
-
-
           return result;
 
     }
 
     public String pickGoodStarterWord() {
-
         String goodWord;
+
         while(true)
-        {   goodWord=randomWord();
-            if(getAnagramsWithOneMoreLetter(goodWord).size()>=MIN_NUM_ANAGRAMS);
-            {return goodWord;}
+        {
+            goodWord=randomWord();
+
+            // check if min anagrams are than MIN_NUM_ANAGRAMS else continue
+            if(getAnagramsWithOneMoreLetter(goodWord).size()>=MIN_NUM_ANAGRAMS)
+                break;
         }
+        return goodWord;
     }
 
     private String arrangeDictionaryOder(String word)
@@ -90,7 +97,8 @@ public class AnagramDictionary {
     {
 
         String key = arrangeDictionaryOder(word.toLowerCase());
-          if(hm.containsKey(key)==false) {
+        // check if the key already exist in the letterToWord hashmap
+          if(!hm.containsKey(key)) {
               wordList = new ArrayList<String>();
               wordList.add(word.toLowerCase());
               hm.put(key, wordList);
@@ -105,7 +113,7 @@ public class AnagramDictionary {
     {
 
         int key=word.length();
-        if(hm.containsKey(key)==false) {
+        if(!hm.containsKey(key)) {
             wordList = new ArrayList<String>();
             wordList.add(word.toLowerCase());
             hm.put(key, wordList);
@@ -117,6 +125,7 @@ public class AnagramDictionary {
         return hm;
     }
 
+    // generate random word
     private String randomWord()
     {
         ArrayList<String> arr = sizeOfWord.get(DEFAULT_WORD_LENGTH);
