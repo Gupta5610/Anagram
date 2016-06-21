@@ -16,6 +16,7 @@ public class AnagramDictionary {
     private static final int MIN_NUM_ANAGRAMS = 5;
     private static final int DEFAULT_WORD_LENGTH = 3;
     private static final int MAX_WORD_LENGTH = 7;
+    private static int i = 0;
     private ArrayList<String> wordList;
     private HashSet<String> wordSet=new HashSet<String>();
     private HashMap<String,ArrayList<String>> letterToWord=new HashMap<String,ArrayList<String>>();
@@ -126,9 +127,9 @@ public class AnagramDictionary {
     }
 
     // generate random word
-    private String randomWord()
-    {
-        ArrayList<String> arr = sizeOfWord.get(DEFAULT_WORD_LENGTH);
+    private String randomWord() {
+        i = i % (MAX_WORD_LENGTH - DEFAULT_WORD_LENGTH);
+        ArrayList<String> arr = sizeOfWord.get(DEFAULT_WORD_LENGTH + (i++));
         int rand = new Random().nextInt(arr.size());
         return arr.get(rand);
 
